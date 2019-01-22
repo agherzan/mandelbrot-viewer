@@ -36,10 +36,11 @@ pub fn get_cli() -> ArgMatches<'static> {
              .default_value("1,-1")
              .takes_value(true)
              .required(true))
-        .arg(Arg::with_name("parallel")
-             .short("p")
-             .long("parallel")
-             .help("Run the program on multiple threads"))
+        .arg(Arg::with_name("threads")
+             .short("t")
+             .long("threads")
+             .help("Number of threads used to compute the set")
+             .takes_value(true))
         .get_matches();
     matches
 }

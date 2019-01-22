@@ -7,3 +7,5 @@ authors = ["Andrei Gherzan <andrei@gherzan.ro>"]
 image = "0.21.0"
 num = "0.2.0"
 clap = "2.32.0"
+crossbeam = "0.6.0"
+num_cpus = "1.9.0"

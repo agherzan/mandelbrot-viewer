@@ -23,6 +23,11 @@ pub fn parse_complex(s: &str) -> Option<Complex<f64>> {
     }
 }
 
+// Parse a type from a string
+pub fn parse<T: FromStr>(s: &str) -> Result<T, T::Err> {
+    T::from_str(&s)
+}
+
 #[test]
 fn test_parse_pair() {
     assert_eq!(parse_pair::<i32>("1x2",'x'), Some((1,2)));

@@ -1,6 +1,8 @@
 extern crate clap;
+extern crate crossbeam;
 extern crate image;
 extern crate num;
+extern crate num_cpus;
 
 mod args;
 mod writers;
@@ -19,11 +21,28 @@ fn main() {
         .expect("Error parsing the last point.");
     let mut pixels = vec![0; area.0 * area.1];
 
-    if cli_args.is_present("parallel") {
-        println!("[WARN] Parallel mode not yet implemented.");
+    let mut threads = num_cpus::get();
+    if cli_args.is_present("threads") {
+        threads = parser::parse(cli_args.value_of("threads").unwrap()).expect("Unparsable threads argument.");
     }
-    println!("[INFO] Plotting...");
-    mandelbrot::plot_set(&mut pixels, area, first_point, last_point);
+
+    let rows_per_band = area.1 / threads + 1;
+    {
+        let bands: Vec<&mut [u8]> = pixels.chunks_mut(rows_per_band * area.0).collect();
+        println!("[INFO] Plotting...");
+        crossbeam::scope(|spawner| {
+            for (i, band) in bands.into_iter().enumerate() {
+                let top = rows_per_band * i;
+                let height = band.len() / area.0;
+                let band_area = (area.0, height);
+                let band_first_point = math::pixel_to_complex((0, top), area, first_point, last_point);
+                let band_last_point = math::pixel_to_complex((area.0, height + top), area, first_point, last_point);
+                spawner.spawn(move |_| {
+                    mandelbrot::plot_set(band, band_area, band_first_point, band_last_point);
+                });
+            }
+        }).expect("Threading error.");
+    }
     writers::export_image(cli_args.value_of("output").unwrap(), &pixels, area)
         .expect("Error exporting the png file.");
     println!("[INFO] Done. See {} file.", cli_args.value_of("output").unwrap());
