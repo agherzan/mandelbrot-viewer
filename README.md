@@ -13,18 +13,18 @@ Andrei Gherzan <andrei@gherzan.ro>
 
 
 USAGE:
-    mandelbrot-viewer [FLAGS] --first-point <first_point> --last-point <last_point> --output <FILE> --resolution <resolution>
+    mandelbrot-viewer [OPTIONS] --first-point <first_point> --last-point <last_point> --output <FILE> --resolution <resolution>
 
 FLAGS:
-    -h, --help        Prints help information
-    -p, --parallel    Run the program on multiple threads
-    -V, --version     Prints version information
+    -h, --help       Prints help information
+    -V, --version    Prints version information
 
 OPTIONS:
     -f, --first-point <first_point>    Top left point on the cartesian graph [default: -2,1]
     -l, --last-point <last_point>      Bootom right point on the cartesian graph [default: 1,-1]
     -o, --output <FILE>                Filename for the output png [default: mandelbrot.png]
     -r, --resolution <resolution>      Image resolution of the output [default: 900x600]
+    -t, --threads <threads>            Number of threads used to compute the set [default: 4]
 ```
 
 This implementation is inspired from `Programming Rust: Fast, Safe Systems Development 1st Edition` by Jim Blandy and Jason Orendorff.
