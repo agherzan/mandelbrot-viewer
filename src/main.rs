@@ -11,7 +11,9 @@ mod math;
 mod parser;
 
 fn main() {
-    let cli_args = args::get_cli();
+    let mut threads = num_cpus::get();
+    let threads_str = &threads.to_string();
+    let cli_args = args::get_cli(threads_str);
 
     let area = parser::parse_pair::<usize>(cli_args.value_of("resolution").unwrap(), 'x')
         .expect("Error parsing image dimensions");
@@ -21,7 +23,6 @@ fn main() {
         .expect("Error parsing the last point.");
     let mut pixels = vec![0; area.0 * area.1];
 
-    let mut threads = num_cpus::get();
     if cli_args.is_present("threads") {
         threads = parser::parse(cli_args.value_of("threads").unwrap()).expect("Unparsable threads argument.");
     }

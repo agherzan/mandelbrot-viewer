@@ -1,6 +1,6 @@
 use clap::{Arg,App,ArgMatches};
 
-pub fn get_cli() -> ArgMatches<'static> {
+pub fn get_cli(threads: &str) -> ArgMatches {
     let matches = App::new(env!("CARGO_PKG_NAME"))
         .version(env!("CARGO_PKG_VERSION"))
         .author(env!("CARGO_PKG_AUTHORS"))
@@ -40,6 +40,7 @@ pub fn get_cli() -> ArgMatches<'static> {
              .short("t")
              .long("threads")
              .help("Number of threads used to compute the set")
+             .default_value(threads)
              .takes_value(true))
         .get_matches();
     matches
