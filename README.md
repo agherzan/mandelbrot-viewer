@@ -6,7 +6,7 @@ This tool plots the Mandelbrot set for a defined area. It outputs the result as 
 
 For more info and runtime arguments run:
 ```sh
-mandelbrot-viewer -h
+$ mandelbrot-viewer -h
 
 mandelbrot-viewer 0.0.1
 Andrei Gherzan <andrei@gherzan.ro>
