@@ -1,5 +1,4 @@
 use std::str::FromStr;
-use num::Complex;
 
 // Parse a string as a pair of values separated by `separator`
 pub fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
@@ -12,14 +11,6 @@ pub fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
 
             }
         }
-    }
-}
-
-// Parse a complex number from a string
-pub fn parse_complex(s: &str) -> Option<Complex<f64>> {
-    match parse_pair(s, ',') {
-        Some((re, im)) => Some(Complex { re, im }),
-        None => None
     }
 }
 

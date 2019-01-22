@@ -10,6 +10,9 @@ mod mandelbrot;
 mod math;
 mod parser;
 
+use num::Complex;
+use std::str::FromStr;
+
 fn main() {
     let mut threads = num_cpus::get();
     let threads_str = &threads.to_string();
@@ -17,9 +20,9 @@ fn main() {
 
     let area = parser::parse_pair::<usize>(cli_args.value_of("resolution").unwrap(), 'x')
         .expect("Error parsing image dimensions");
-    let first_point = parser::parse_complex(cli_args.value_of("first_point").unwrap()).
-        expect("Error parsing the first point.");
-    let last_point = parser::parse_complex(cli_args.value_of("last_point").unwrap())
+    let first_point = Complex::from_str(cli_args.value_of("first_point").unwrap())
+        .expect("Error parsing the first point.");
+    let last_point = Complex::from_str(cli_args.value_of("last_point").unwrap())
         .expect("Error parsing the last point.");
     let mut pixels = vec![0; area.0 * area.1];
 
