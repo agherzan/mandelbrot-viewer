@@ -4,8 +4,8 @@ version = "0.0.1"
 authors = ["Andrei Gherzan <andrei@gherzan.ro>"]
 
 [dependencies]
-image = "0.21.0"
-num = "0.2.0"
-clap = "2.32.0"
-crossbeam = "0.6.0"
-num_cpus = "1.9.0"
+image = "0.22.5"
+num = "0.4.0"
+clap = "3.2.20"
+crossbeam = "0.8.2"
+num_cpus = "1.13.1"
